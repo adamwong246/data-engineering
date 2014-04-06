@@ -8,6 +8,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :item
 
   def self.paramters_from_csv(params)
+  def self.parameters_from_csv(params)
     CSV.new(params[:csv].read, headers: true, :col_sep => "\t")
     .to_a
     .map{|row|

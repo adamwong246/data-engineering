@@ -41,7 +41,7 @@ class PurchasesController < ApplicationController
   # POST /purchases.json
   def create
     if params[:purchase][:csv]
-      @purchase = Purchase.paramters_from_csv(params[:purchase]).map { |p|
+      @purchase = Purchase.parameters_from_csv(params[:purchase]).map { |p|
         Purchase.new(p)
       }
     else
