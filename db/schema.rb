@@ -11,26 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140406190555) do
+ActiveRecord::Schema.define(:version => 20140406195232) do
 
   create_table "items", :force => true do |t|
     t.string   "description"
     t.decimal  "price"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "purchase_id"
   end
 
   create_table "merchants", :force => true do |t|
     t.string   "address"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "purchase_id"
   end
 
   create_table "purchasers", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "purchase_id"
   end
 
   create_table "purchases", :force => true do |t|

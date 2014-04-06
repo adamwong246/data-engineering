@@ -3,29 +3,75 @@ require 'spec_helper'
 describe Purchase, focus: true do
 
   describe "construction" do
-    before(:each) do
-      @purchase = Purchase.new({
-        count: 99,
-        purchaser: FactoryGirl.create(:purchaser),
-        item: FactoryGirl.create(:item),
-        merchant: FactoryGirl.create(:merchant)
-      })
-    end
+    describe "from objects" do
+      before(:each) do
+        @purchase = Purchase.new({
+          count: 99,
+          purchaser: FactoryGirl.create(:purchaser,
+            name: "Hank Hill"),
+          item: FactoryGirl.create(:item,
+            description: "Propane and propane accessories",
+            price: "99.99"
+          ),
+          merchant: FactoryGirl.create(:merchant,
+            name: "Strickland Propane",
+            address: "135 Los Gatos Road Arlen Texas"
+          )
+        })
+      end
 
-    it "it should have the correct count" do
-      expect(@purchase.count).to eq(99)
-    end
+      it "it should have the correct count" do
+        expect(@purchase.count).to eq(99)
+      end
 
-    it "it should have a purchaser" do
-      expect(@purchase.purchaser).to_not be_nil
-    end
+      it "it should have the purchaser" do
+        expect(@purchase.purchaser.name).to eq("Hank Hill")
+      end
 
-    it "it should have an item" do
-      expect(@purchase.item).to_not be_nil
-    end
+      it "it should have the item" do
+        expect(@purchase.item.description).to eq("Propane and propane accessories")
+        expect(@purchase.item.price).to be_within(0.01).of(99.99)
+      end
 
-    it "it should have an merchant" do
-      expect(@purchase.merchant).to_not be_nil
+      it "it should have an merchant" do
+        expect(@purchase.merchant.name).to eq("Strickland Propane")
+        expect(@purchase.merchant.address).to eq("135 Los Gatos Road Arlen Texas")
+      end
+    end
+    describe "from hashes" do
+      before(:each) do
+        @purchase = Purchase.new({
+          count: 99,
+          purchaser_attributes: FactoryGirl.attributes_for(:purchaser,
+            name: "Hank Hill"),
+          item_attributes: FactoryGirl.attributes_for(:item,
+            description: "Propane and propane accessories",
+            price: "99.99"
+          ),
+          merchant_attributes: FactoryGirl.attributes_for(:merchant,
+            name: "Strickland Propane",
+            address: "135 Los Gatos Road Arlen Texas"
+          )
+        })
+      end
+
+      it "it should have the correct count" do
+        expect(@purchase.count).to eq(99)
+      end
+
+      it "it should have the purchaser" do
+        expect(@purchase.purchaser.name).to eq("Hank Hill")
+      end
+
+      it "it should have the item" do
+        expect(@purchase.item.description).to eq("Propane and propane accessories")
+        expect(@purchase.item.price).to be_within(0.01).of(99.99)
+      end
+
+      it "it should have an merchant" do
+        expect(@purchase.merchant.name).to eq("Strickland Propane")
+        expect(@purchase.merchant.address).to eq("135 Los Gatos Road Arlen Texas")
+      end
     end
   end
 
@@ -48,6 +94,17 @@ describe Purchase, focus: true do
           ).to have(4).items
         end
 
+        it "should have key [purchaser_attributes]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r).to have_key(:purchaser_attributes)
+          }
+        end
+
+        it "should have key [purchaser_attributes][name]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r[:purchaser_attributes]).to have_key(:name)
+          }
+        end
       end
     end
   end
