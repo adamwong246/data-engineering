@@ -20,6 +20,14 @@ class Purchase < ActiveRecord::Base
         count: row["purchase count"].to_i,
         purchaser_attributes: {
           name: row["purchase count"]
+        },
+        item_attributes: {
+          description: row["item description"],
+          price: row["item_price"]
+        },
+        merchant_attributes: {
+          name: row["merchant name"],
+          address: row["merchant address"]
         }
       }
     }

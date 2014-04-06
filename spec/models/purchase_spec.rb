@@ -105,6 +105,43 @@ describe Purchase, focus: true do
             expect(r[:purchaser_attributes]).to have_key(:name)
           }
         end
+
+        it "should have key [item_attributes]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r).to have_key(:item_attributes)
+          }
+        end
+
+        it "should have key [item_attributes][description]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r[:item_attributes]).to have_key(:description)
+          }
+        end
+
+        it "should have key [item_attributes][price]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r[:item_attributes]).to have_key(:price)
+          }
+        end
+
+
+        it "should have key [merchant_attributes]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r).to have_key(:merchant_attributes)
+          }
+        end
+
+        it "should have key [merchant_attributes][name]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r[:merchant_attributes]).to have_key(:name)
+          }
+        end
+
+        it "should have key [merchant_attributes][address]" do
+          Purchase.parameters_from_csv({csv: @file}).each {|r|
+            expect(r[:merchant_attributes]).to have_key(:address)
+          }
+        end
       end
     end
   end
