@@ -1,12 +1,13 @@
 require "spec_helper"
 
 feature "Purchase management" do
-  scenario "User uploads a csv file" do
+  before(:each) do
     visit "/purchases/new"
-
     attach_file "purchase_csv", Rails.root.join('spec', 'fixtures', 'example_input.tab')
     click_button "Create Purchase(s)"
+  end
 
+  scenario "User uploads a csv file" do
     expect(page).to have_text("Purchase(s) were successfully created.")
     
     expect(page).to have_text("Snake Plissken")
@@ -27,11 +28,6 @@ feature "Purchase management" do
   end
 
   scenario "User uploads a csv file which create Purchasers" do
-    visit "/purchases/new"
-
-    attach_file "purchase_csv", Rails.root.join('spec', 'fixtures', 'example_input.tab')
-    click_button "Create Purchase(s)"
-
     visit(purchasers_path)
 
     expect(page).to have_text("Snake Plissken")
@@ -41,11 +37,6 @@ feature "Purchase management" do
   end
 
   scenario "User uploads a csv file which create Items" do
-    visit "/purchases/new"
-
-    attach_file "purchase_csv", Rails.root.join('spec', 'fixtures', 'example_input.tab')
-    click_button "Create Purchase(s)"
-
     visit(items_path)
 
     expect(page).to have_text("$10 off $20 of food")
@@ -55,11 +46,6 @@ feature "Purchase management" do
   end
 
   scenario "User uploads a csv file which create Merchants" do
-    visit "/purchases/new"
-
-    attach_file "purchase_csv", Rails.root.join('spec', 'fixtures', 'example_input.tab')
-    click_button "Create Purchase(s)"
-
     visit(merchants_path)
 
     expect(page).to have_text("987 Fake St")
