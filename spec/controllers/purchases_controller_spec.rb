@@ -23,7 +23,12 @@ describe PurchasesController do
   # This should return the minimal set of attributes required to create a valid
   # Purchase. As you add validations to Purchase, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "count" => "1" } }
+  let(:valid_attributes) { 
+    FactoryGirl.attributes_for(:purchase)
+    .merge(purchaser_attributes: FactoryGirl.attributes_for(:purchaser))
+    .merge(item_attributes: FactoryGirl.attributes_for(:item))
+    .merge(merchant_attributes: FactoryGirl.attributes_for(:merchant))
+   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
