@@ -10,29 +10,30 @@ feature "Purchase management" do
   scenario "User uploads a csv file" do
     expect(page).to have_text("Purchase(s) were successfully created.")
     
-    expect(page).to have_text("Snake Plissken")
-    expect(page).to have_text("Amy Pond")
-    expect(page).to have_text("Marty McFly")
+    expect(page).to have_text("Snake Plissken",:count => 2)
+    expect(page).to have_text("Amy Pond",:count => 1)
+    expect(page).to have_text("Marty McFly",:count => 1)
 
-    expect(page).to have_text("$10 off $20 of food")
-    expect(page).to have_text("$30 of awesome for $10")
-    expect(page).to have_text("$20 Sneakers for $5")
+    expect(page).to have_text("$10 off $20 of food",:count => 1)
+    expect(page).to have_text("$30 of awesome for $10",:count => 1)
+    expect(page).to have_text("$20 Sneakers for $5",:count => 2)
 
-    expect(page).to have_text("987 Fake St")
-    expect(page).to have_text("456 Unreal Rd")
+    expect(page).to have_text("123 Fake St",:count => 2)
+    expect(page).to have_text("987 Fake St",:count => 1)
+    expect(page).to have_text("456 Unreal Rd",:count => 1)
 
-    expect(page).to have_text("Bob's Pizza")
-    expect(page).to have_text("Tom's Awesome Shop")
-    expect(page).to have_text("Sneaker Store Emporium")
+    expect(page).to have_text("Bob's Pizza",:count => 1)
+    expect(page).to have_text("Tom's Awesome Shop",:count => 1)
+    expect(page).to have_text("Sneaker Store Emporium",:count => 2)
 
   end
 
   scenario "User uploads a csv file which create Purchasers" do
     visit(purchasers_path)
 
-    expect(page).to have_text("Snake Plissken")
-    expect(page).to have_text("Amy Pond")
-    expect(page).to have_text("Marty McFly")
+    expect(page).to have_text("Snake Plissken",:count => 1)
+    expect(page).to have_text("Amy Pond",:count => 1)
+    expect(page).to have_text("Marty McFly",:count => 1)
 
   end
 
@@ -48,12 +49,12 @@ feature "Purchase management" do
   scenario "User uploads a csv file which create Merchants" do
     visit(merchants_path)
 
-    expect(page).to have_text("987 Fake St")
-    expect(page).to have_text("456 Unreal Rd")
+    expect(page).to have_text("987 Fake St",:count => 1)
+    expect(page).to have_text("456 Unreal Rd",:count => 1)
 
-    expect(page).to have_text("Bob's Pizza")
-    expect(page).to have_text("Tom's Awesome Shop")
-    expect(page).to have_text("Sneaker Store Emporium")
+    expect(page).to have_text("Bob's Pizza",:count => 1)
+    expect(page).to have_text("Tom's Awesome Shop",:count => 1)
+    expect(page).to have_text("Sneaker Store Emporium",:count => 1)
 
   end
 end
