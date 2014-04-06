@@ -2,7 +2,12 @@
 
 <table>
   <tr>
-    <th>Count</th>
+    <th>Purchaser name</th>
+    <th>Item description</th>
+    <th>Item price</th>
+    <th>Purchase count</th>
+    <th> Merchant address </th>
+    <th> Merchant name </th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +15,11 @@
 
 <% @purchases.each do |purchase| %>
   <tr>
+    <td><%= purchase.purchaser.name %></td>
+    <td><%= purchase.item.description %></td>
     <td><%= purchase.count %></td>
+    <td><%= purchase.merchant.address %></td>
+    <td><%= purchase.merchant.name %></td>
     <td><%= link_to 'Show', purchase %></td>
     <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
     <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>

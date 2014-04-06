@@ -19,7 +19,7 @@ class Purchase < ActiveRecord::Base
       {
         count: row["purchase count"].to_i,
         purchaser_attributes: {
-          name: row["purchase count"]
+          name: row["purchaser name"]
         },
         item_attributes: {
           description: row["item description"],

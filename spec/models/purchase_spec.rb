@@ -124,7 +124,6 @@ describe Purchase, focus: true do
           }
         end
 
-
         it "should have key [merchant_attributes]" do
           Purchase.parameters_from_csv({csv: @file}).each {|r|
             expect(r).to have_key(:merchant_attributes)

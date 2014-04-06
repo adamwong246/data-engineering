@@ -8,5 +8,22 @@ feature "Purchase management" do
     click_button "Create Purchase(s)"
 
     expect(page).to have_text("Purchase(s) were successfully created.")
+    
+    expect(page).to have_text("Snake Plissken")
+    expect(page).to have_text("Amy Pond")
+    expect(page).to have_text("Marty McFly")
+
+    expect(page).to have_text("$10 off $20 of food")
+    expect(page).to have_text("$30 of awesome for $10")
+    expect(page).to have_text("$20 Sneakers for $5")
+
+    expect(page).to have_text("987 Fake St")
+    expect(page).to have_text("456 Unreal Rd")
+
+    expect(page).to have_text("Bob's Pizza")
+    expect(page).to have_text("Tom's Awesome Shop")
+    expect(page).to have_text("Sneaker Store Emporium")
+
+
   end
 end

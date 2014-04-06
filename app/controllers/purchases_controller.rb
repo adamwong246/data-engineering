@@ -42,14 +42,17 @@ class PurchasesController < ApplicationController
   def create
     if params[:purchase][:csv]
       @purchase = Purchase.parameters_from_csv(params[:purchase]).map { |p|
-        Purchase.new(p)
+        Purchase.create(p)
       }
     else
       @purchase = Purchase.new(params[:purchase])
     end
 
     respond_to do |format|
-      if [@purchase].flatten.map(&:save).all? 
+      if [@purchase].flatten.map{|purchase|
+        # purchase.build_purchaser
+        purchase.save
+      }.all? 
         format.html { redirect_to purchases_path, notice: 'Purchase(s) were successfully created.' }
         format.json { render json: @purchase, status: :created, location: purchases_path }
       else
