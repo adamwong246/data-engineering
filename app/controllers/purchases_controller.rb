@@ -50,7 +50,7 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if [@purchase].flatten.map(&:save).all? 
-        format.html { redirect_to purchases_path, notice: 'Purchase was successfully created.' }
+        format.html { redirect_to purchases_path, notice: 'Purchase(s) were successfully created.' }
         format.json { render json: @purchase, status: :created, location: purchases_path }
       else
         format.html { render action: "new" }

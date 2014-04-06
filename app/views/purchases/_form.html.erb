@@ -12,10 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :count %><br />
-    <%= f.number_field :count %>
+    <%= f.file_field :csv %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create Purchase(s)" %>
   </div>
 <% end %>
