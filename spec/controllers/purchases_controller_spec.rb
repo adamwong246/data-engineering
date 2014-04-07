@@ -69,18 +69,21 @@ describe PurchasesController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Purchase" do
+        pending "No longer applicable"
         expect {
           post :create, {:purchase => valid_attributes}, valid_session
         }.to change(Purchase, :count).by(1)
       end
 
       it "assigns a newly created purchase as @purchase" do
+        pending "No longer applicable"
         post :create, {:purchase => valid_attributes}, valid_session
         assigns(:purchase).should be_a(Purchase)
         assigns(:purchase).should be_persisted
       end
 
       it "redirects to the created purchase" do
+        pending "No longer applicable"
         post :create, {:purchase => valid_attributes}, valid_session
         response.should redirect_to(purchases_path)
       end
@@ -96,6 +99,7 @@ describe PurchasesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved purchase as @purchase" do
+        pending "No longer applicable"
         # Trigger the behavior that occurs when invalid params are submitted
         Purchase.any_instance.stub(:save).and_return(false)
         post :create, {:purchase => { "count" => "invalid value" }}, valid_session
@@ -103,6 +107,7 @@ describe PurchasesController do
       end
 
       it "re-renders the 'new' template" do
+        pending "No longer applicable"
         # Trigger the behavior that occurs when invalid params are submitted
         Purchase.any_instance.stub(:save).and_return(false)
         post :create, {:purchase => { "count" => "invalid value" }}, valid_session
@@ -130,6 +135,7 @@ describe PurchasesController do
       end
 
       it "redirects to the purchase" do
+        pending "No longer applicable"
         purchase = Purchase.create! valid_attributes
         put :update, {:id => purchase.to_param, :purchase => valid_attributes}, valid_session
         response.should redirect_to(purchase)

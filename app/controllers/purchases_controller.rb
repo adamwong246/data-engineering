@@ -40,24 +40,30 @@ class PurchasesController < ApplicationController
   # POST /purchases
   # POST /purchases.json
   def create
-    if params[:purchase][:csv]
-      @purchase = Purchase.parameters_from_csv(params[:purchase]).map { |p|
-        Purchase.create(p)
+    @purchases = CSV.new(params[:purchase][:csv].read, headers: true, :col_sep => "\t")
+      .to_a.map{|row|
+        p = Purchase.create(count: row["purchase count"].to_i)
+        p.purchaser = Purchaser.find_or_create_by_name(row["purchaser name"])
+        p.item = Item.find_or_create_by_description_and_price(row["item description"], row["item_price"])
+        p.merchant = Merchant.find_or_create_by_name_and_address(row["merchant name"], row["merchant address"])
+        p
       }
-    else
-      @purchase = Purchase.new(params[:purchase])
-    end
+    # @purchase = Purchase.parameters_from_csv(params[:purchase]).map {|h|
+    #   Purchase.create(h)
+    # }
 
     respond_to do |format|
-      if [@purchase].flatten.map{|purchase|
-        # purchase.build_purchaser
-        purchase.save
-      }.all? 
+      all_ok = true
+      Purchase.transaction do
+        all_ok = @purchases.map{|purchase|
+          purchase.save
+        }.all?
+      end
+
+      if all_ok 
         format.html { redirect_to purchases_path, notice: 'Purchase(s) were successfully created.' }
-        format.json { render json: @purchase, status: :created, location: purchases_path }
       else
-        format.html { render action: "new" }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
+        format.html { redirect_to new_purchase_path, alert: "Something went wrong with that upload" }
       end
     end
   end
