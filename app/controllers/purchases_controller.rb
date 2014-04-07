@@ -48,9 +48,6 @@ class PurchasesController < ApplicationController
         p.merchant = Merchant.find_or_create_by_name_and_address(row["merchant name"], row["merchant address"])
         p
       }
-    # @purchase = Purchase.parameters_from_csv(params[:purchase]).map {|h|
-    #   Purchase.create(h)
-    # }
 
     respond_to do |format|
       all_ok = true

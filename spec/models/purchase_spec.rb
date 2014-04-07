@@ -79,6 +79,7 @@ describe Purchase, focus: true do
     describe "parameters_from_csv" do
       describe "should be able to process a csv file into a array of hash" do
         before(:each) do
+          pending("No Longer applicable")
           @file = Rack::Test::UploadedFile.new('example_input.tab', "image/csv")
         end
 
