@@ -9,6 +9,8 @@ feature "Purchase management" do
 
   scenario "User uploads a csv file" do
     expect(page).to have_text("Purchase(s) were successfully created.")
+
+    expect(page).to have_text("4 records found")
     
     expect(page).to have_text("Snake Plissken",:count => 2)
     expect(page).to have_text("Amy Pond",:count => 1)
