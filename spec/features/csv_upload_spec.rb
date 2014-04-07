@@ -8,7 +8,7 @@ feature "Purchase management" do
   end
 
   scenario "User uploads a csv file" do
-    expect(page).to have_text("Purchase(s) were successfully created. Total Revenue: $26.00")
+    expect(page).to have_text("Purchase(s) were successfully created. Total Revenue: $95.00")
 
     expect(page).to have_text("4 records found")
     
