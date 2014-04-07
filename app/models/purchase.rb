@@ -6,9 +6,9 @@ class Purchase < ActiveRecord::Base
   attr_accessible :item, :item_attributes
   attr_accessible :merchant, :merchant_attributes
 
-  has_one :purchaser
-  has_one :merchant
-  has_one :item
+  belongs_to :purchaser
+  belongs_to :merchant
+  belongs_to :item
 
   accepts_nested_attributes_for :purchaser, :item, :merchant
 
