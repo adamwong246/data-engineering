@@ -44,7 +44,7 @@ class PurchasesController < ApplicationController
       .to_a.map{|row|
         p = Purchase.create(count: row["purchase count"].to_i)
         p.purchaser = Purchaser.find_or_create_by_name(row["purchaser name"])
-        p.item = Item.find_or_create_by_description_and_price(row["item description"], row["item_price"])
+        p.item = Item.find_or_create_by_description_and_price(row["item description"], row["item price"])
         p.merchant = Merchant.find_or_create_by_name_and_address(row["merchant name"], row["merchant address"])
         p
       }
@@ -58,7 +58,8 @@ class PurchasesController < ApplicationController
       end
 
       if all_ok 
-        format.html { redirect_to purchases_path, notice: 'Purchase(s) were successfully created.' }
+        total_revenue = ActionController::Base.helpers.number_to_currency(@purchases.inject(0){|sum,p| sum + (p.item.price * p.count)})
+        format.html { redirect_to purchases_path, notice: "Purchase(s) were successfully created. Total Revenue: #{total_revenue}}" }
       else
         format.html { redirect_to new_purchase_path, alert: "Something went wrong with that upload" }
       end
